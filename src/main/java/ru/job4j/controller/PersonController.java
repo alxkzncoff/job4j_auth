@@ -4,31 +4,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.domain.Person;
-import ru.job4j.repository.PersonRepository;
+import ru.job4j.service.PersonService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/persons")
 public class PersonController {
 
-    private final PersonRepository persons;
+    private final PersonService personService;
 
-    public PersonController(final PersonRepository persons) {
-        this.persons = persons;
+    public PersonController(PersonService personService) {
+        this.personService = personService;
     }
 
     @GetMapping("/")
     public List<Person> findAll() {
-        List<Person> rsl = new ArrayList<>();
-        this.persons.findAll().forEach(rsl::add);
-        return rsl;
+        return personService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Person> findById(@PathVariable int id) {
-        var person = this.persons.findById(id);
+        var person = personService.findById(id);
         return new ResponseEntity<Person>(
                 person.orElse(new Person()),
                 person.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
@@ -38,14 +35,14 @@ public class PersonController {
     @PostMapping("/")
     public ResponseEntity<Person> create(@RequestBody Person person) {
         return new ResponseEntity<Person>(
-                this.persons.save(person),
+                personService.save(person),
                 HttpStatus.CREATED
         );
     }
 
     @PutMapping("/")
     public ResponseEntity<Void> update(@RequestBody Person person) {
-        this.persons.save(person);
+        personService.save(person);
         return ResponseEntity.ok().build();
     }
 
@@ -53,7 +50,7 @@ public class PersonController {
     public ResponseEntity<Void> delete(@PathVariable int id) {
         Person person = new Person();
         person.setId(id);
-        this.persons.delete(person);
+        personService.delete(person);
         return ResponseEntity.ok().build();
     }
 }
