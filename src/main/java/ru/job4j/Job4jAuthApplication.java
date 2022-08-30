@@ -33,6 +33,7 @@ public class Job4jAuthApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(Job4jAuthApplication.class, args);
+        System.out.println("URL: http://localhost:8080/persons/");
     }
 
 }

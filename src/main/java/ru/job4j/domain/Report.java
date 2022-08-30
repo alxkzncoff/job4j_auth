@@ -1,6 +1,7 @@
 package ru.job4j.domain;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class Report {
     private int id;
@@ -47,5 +48,22 @@ public class Report {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Report report = (Report) o;
+        return id == report.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
