@@ -18,7 +18,7 @@ import java.util.List;
 public class ReportController {
 
     @Autowired
-    RestTemplate rest;
+    private RestTemplate rest;
 
     private static final String API = "http://localhost:8080/persons/";
     private static final String API_ID = "http://localhost:8080/persons/{id}";

@@ -1,7 +1,6 @@
 package ru.job4j.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.domain.Person;
 import ru.job4j.repository.PersonRepository;
 
@@ -21,17 +20,14 @@ public class PersonService {
         return store.save(person);
     }
 
-    @Transactional
     public Optional<Person> findById(int id) {
         return store.findById(id);
     }
 
-    @Transactional
     public List<Person> findAll() {
         return store.findAll();
     }
 
-    @Transactional
     public void delete(Person person) {
         store.delete(person);
     }
